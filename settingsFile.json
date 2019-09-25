@@ -1,0 +1,25 @@
+{
+  "campaigns": [{
+    "goals": [{
+      "identifier": "CUSTOM_RECOMMENDATION_AB_GOAL",
+      "id": 203,
+      "type": "CUSTOM_GOAL"
+    }],
+    "variations": [{
+      "id": "1",
+      "name": "Control",
+      "weight": 40
+    }, {
+      "id": "2",
+      "name": "Variation-1",
+      "weight": 60
+    }],
+    "id": 22,
+    "percentTraffic": 90,
+    "key": "NEW_RECOMMENDATION_AB_CAMPAIGN",
+    "status": "RUNNING",
+    "type": "VISUAL_AB"
+  }],
+  "accountId": 123456,
+  "version": 1
+}
