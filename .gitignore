@@ -1,0 +1,3 @@
+devtools/
+*.pyc
+.DS_Store
