@@ -86,23 +86,39 @@
     </style>
   </head>
 <body>
-  <a href="/" style="position:fixed; top:10px; left: 20px;">HOME</a>
+  <div>
+    <h2 class="center  color-blue">VWO Python SDK Example : <strong>{{ campaign_type }}</strong></h2>
+    <div class="main-container">
+      <div class="left-container">
+        <h2 class="center  color-grey">Settings</h2>
+        <pre><code>{{ settings_file }}</code></pre>
+      </div>
 
+      <div class="right-container">
+        <div class="half-containers">
+          <h2 class="center  color-grey">Details</h2>
 
-<div>
-  <h2 class="center  color-blue">VWO Python SDK Example</h2>
-  <div class="main-container">
-    <h3>Hey there, what would you like to experiment?</h3>
+          <div class="center  margin--top">
+            <div>Campaign key - <strong>{{ feature_rollout_campaign_key }}</strong></div>
+          </div>
 
-    <div>
-      <ul c;ass="margin--top">
-        <li><a href="/ab">A/B Test</a></li>
-        <li><a href="/feature-rollout">Feature Rollout</a></li>
-        <li><a href="/feature-test">Feature Test</a></li>
-      </ul>
+          <div class="center  margin--top">
+            <div>User ID - <strong>{{ user_id }}</strong></div>
+          </div>
+
+          {% if (is_user_part_of_feature_rollout_campaign) %}
+            <div class="center  margin--top">
+              <div>User became a part of feature rollout </div>
+            </div>
+          {% else %}
+            <div class="center  margin--top">
+              <div>User did not become a part of feature rollout</div>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
 
+  </div>
 </body>
 </html>

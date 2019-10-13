@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <title>VWO server-side Experimentation</title>
+    <style>
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .margin--top {
+        margin-top: 20px;
+      }
+
+      .color-grey {
+        color: #777;
+      }
+
+      .color-blue {
+        color: #00a8ff;
+      }
+
+      button {
+        background: #fff;
+        padding: 10px 20px;
+        color: #777;
+        border: 2px solid #777;
+        font-size: 18px;
+        text-decoration: none;
+      }
+      button.v1 {
+        border: 2px solid #ff9a9a;
+      }
+      button.v2 {
+        border: 2px solid #57e0a2;
+      }
+      button.v3 {
+        border: 2px solid #00a8ff;
+      }
+
+      pre {
+        background-color: ghostwhite;
+        border: 1px solid silver;
+        padding: 10px 20px;
+        max-height: 80vh;
+        overflow: auto;
+      }
+      .json-key {
+        color: brown;
+      }
+      .json-value {
+        color: navy;
+      }
+      .json-string {
+        color: olive;
+      }
+
+      .main-container {
+        display: flex;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+      }
+      .left-container {
+        flex: 0 1 50%;
+        min-height: 100%;
+        max-width: 50%;
+        margin: 0 10px;
+      }
+      .right-container {
+        flex: 0 1 50%;
+        display: flex;
+        height: 100%;
+        max-width: 50%;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        margin: 0 10px;
+      }
+      .half-containers {
+        flex: 0 0 100%;
+        max-height: 50%;
+        min-height: 50%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+    </style>
+  </head>
+<body>
+  <div>
+    <h2 class="center  color-blue">VWO Python SDK Example : <strong>{{ campaign_type }}</strong></h2>
+    <div class="main-container">
+      <div class="left-container">
+        <h2 class="center  color-grey">Settings</h2>
+        <pre><code>{{ settings_file }}</code></pre>
+      </div>
+
+      <div class="right-container">
+        <div class="half-containers">
+          <h2 class="center  color-grey">Details</h2>
+
+          <div class="center  margin--top">
+            <div>Campaign key - <strong>{{ feature_campaign_key }}</strong></div>
+          </div>
+          <div class="center margin--top">
+            <div>Campaign goal identifier - <strong>{{ feature_campaign_goal_identifier }}</strong></div>
+          </div>
+
+          <div class="center  margin--top">
+            <div>User ID - <strong>{{ user_id }}</strong></div>
+          </div>
+
+          {% if (is_user_part_of_feature_campaign) %}
+            <div class="center  margin--top">
+              <div>User became a part of feature test </div>
+            </div>
+          {% else %}
+            <div class="center  margin--top">
+              <div>User did not become a part of feature test</div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="half-containers  center">
+          {% if (boolean_variable is not none) %}
+            <button class="v1">BOOLEAN: {{boolean_variable}}</button>
+          {% endif %}
+          {% if (integer_variable is not none) %}
+            <button class="v1">INTEGER: {{integer_variable}}</button>
+          {% endif %}
+          {% if (double_variable is not none) %}
+            <button class="v1">DOUBLE: {{double_variable}}</button>
+          {% endif %}
+          {% if (string_variable is not none) %}
+            <button class="v1">STRING: {{string_variable}}</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

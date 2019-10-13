@@ -6,7 +6,7 @@ This repository provides a basic demo of how server-side works with VWO Python S
 
 ### Requirements
 
-- python >= 2.7.0 and < 3.0.0
+- python 2.7 +
 
 ### Documentation
 

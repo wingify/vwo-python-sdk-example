@@ -1,0 +1,117 @@
+{
+    "accountId": 123456, 
+    "campaigns": [
+        {
+            "goals": [], 
+            "id": 29, 
+            "key": "FEATURE_ROLLOUT_CAMPAIGN_KEY", 
+            "percentTraffic": 50, 
+            "status": "RUNNING", 
+            "type": "FEATURE_ROLLOUT", 
+            "variables": [
+                {
+                    "id": 1, 
+                    "key": "STRING_VARIABLE", 
+                    "type": "string", 
+                    "value": "d1"
+                }, 
+                {
+                    "id": 2, 
+                    "key": "INTEGER_VARIABLE", 
+                    "type": "integer", 
+                    "value": 123
+                }
+            ], 
+            "variations": [
+                {
+                    "id": "1", 
+                    "name": "Control", 
+                    "weight": 100
+                }
+            ]
+        }, 
+        {
+            "goals": [
+                {
+                    "id": 203, 
+                    "identifier": "FEATURE_CAMPAIGN_GOAL", 
+                    "type": "CUSTOM_GOAL"
+                }
+            ], 
+            "id": 22, 
+            "key": "FEATURE_CAMPAIGN_KEY", 
+            "percentTraffic": 50, 
+            "status": "RUNNING", 
+            "type": "FEATURE_TEST", 
+            "variations": [
+                {
+                    "id": "1", 
+                    "isFeatureEnabled": false, 
+                    "name": "Control", 
+                    "variables": [
+                        {
+                            "id": 1, 
+                            "key": "STRING_VARIABLE", 
+                            "type": "string", 
+                            "value": "d2"
+                        }, 
+                        {
+                            "id": 2, 
+                            "key": "INTEGER_VARIABLE", 
+                            "type": "integer", 
+                            "value": 321
+                        }
+                    ], 
+                    "weight": 50
+                }, 
+                {
+                    "id": "2", 
+                    "isFeatureEnabled": true, 
+                    "name": "Variation-1", 
+                    "variables": [
+                        {
+                            "id": 1, 
+                            "key": "STRING_VARIABLE", 
+                            "type": "string", 
+                            "value": "d1"
+                        }, 
+                        {
+                            "id": 2, 
+                            "key": "INTEGER_VARIABLE", 
+                            "type": "integer", 
+                            "value": 123
+                        }
+                    ], 
+                    "weight": 50
+                }
+            ]
+        }, 
+        {
+            "goals": [
+                {
+                    "id": 203, 
+                    "identifier": "CUSTOM_RECOMMENDATION_AB_GOAL", 
+                    "type": "CUSTOM_GOAL"
+                }
+            ], 
+            "id": 22, 
+            "key": "NEW_RECOMMENDATION_AB_CAMPAIGN", 
+            "percentTraffic": 90, 
+            "status": "RUNNING", 
+            "type": "VISUAL_AB", 
+            "variations": [
+                {
+                    "id": "1", 
+                    "name": "Control", 
+                    "weight": 40
+                }, 
+                {
+                    "id": "2", 
+                    "name": "Variation-1", 
+                    "weight": 60
+                }
+            ]
+        }
+    ], 
+    "version": 2
+}

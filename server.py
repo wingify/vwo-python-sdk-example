@@ -43,7 +43,9 @@ def init_sdk():
     global vwo_client_instance
     global settings_file
 
-    new_settings_file = vwo.get_settings_file(account_id, sdk_key)
+    # new_settings_file = vwo.get_settings_file(account_id, sdk_key)
+    with open('test_settings_file.json') as json_file:
+        new_settings_file = json.dumps(json.load(json_file))
 
     print('settingsFile fetched')
 
@@ -100,6 +102,63 @@ def ab_campaign():
         settings_file = json.dumps(json.loads(settings_file), sort_keys = True, indent = 4, separators = (',', ': '))
     )
 
+@app.route('/feature-rollout')
+def feature_rollout_campaign():
+    print(feature_rollout_campaign_key)
+    req_user_id = request.args.get('userId')
+
+    if req_user_id == None:
+        user_id = get_random_user()
+    else:
+        user_id = str(req_user_id)
+
+    print(user_id)
+
+    is_user_part_of_feature_rollout_campaign = vwo_client_instance.is_feature_enabled(feature_rollout_campaign_key, user_id)
+
+    return render_template(
+        'feature-rollout.html',
+        campaign_type = "Feature-rollout",
+        user_id = user_id,
+        is_user_part_of_feature_rollout_campaign = is_user_part_of_feature_rollout_campaign,
+        feature_rollout_campaign_key = feature_rollout_campaign_key,
+        settings_file = json.dumps(json.loads(settings_file), sort_keys = True, indent = 4, separators = (',', ': '))
+    )
+
+@app.route('/feature-test')
+def feature_campaign():
+    print(feature_campaign_key)
+    req_user_id = request.args.get('userId')
+
+    if req_user_id == None:
+        user_id = get_random_user()
+    else:
+        user_id = str(req_user_id)
+
+    print(user_id)
+    is_user_part_of_feature_campaign = vwo_client_instance.is_feature_enabled(feature_campaign_key, user_id)
+    print(is_user_part_of_feature_campaign)
+    revenue_value = 1234
+    vwo_client_instance.track(feature_campaign_key, user_id, feature_campaign_goal_identifier, revenue_value)
+
+    string_variable = vwo_client_instance.get_feature_variable_value(feature_campaign_key, string_variable_key, user_id)
+    integer_variable = vwo_client_instance.get_feature_variable_value(feature_campaign_key, integer_variable_key, user_id)
+    boolean_variable = vwo_client_instance.get_feature_variable_value(feature_campaign_key, boolean_variable_key, user_id)
+    double_variable = vwo_client_instance.get_feature_variable_value(feature_campaign_key, double_variable_key, user_id)
+
+    return render_template(
+        'feature-test.html',
+        user_id = user_id,
+        campaign_type = "Feature-test",
+        is_user_part_of_feature_campaign = is_user_part_of_feature_campaign,
+        feature_campaign_key = feature_campaign_key,
+        feature_campaign_goal_identifier = feature_campaign_goal_identifier,
+        string_variable = string_variable,
+        integer_variable = integer_variable,
+        boolean_variable = boolean_variable,
+        double_variable = double_variable,
+        settings_file = json.dumps(json.loads(settings_file), sort_keys = True, indent = 4, separators = (',', ': '))
+    )
 
 if __name__ == '__main__':
     app.run(debug = True)
