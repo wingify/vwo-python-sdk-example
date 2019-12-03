@@ -104,10 +104,14 @@
           <div class="center margin--top">
             <div>Campaign goal identifier - <strong>{{ ab_campaign_goal_identifier }}</strong></div>
           </div>
-
+          <div class="center  margin--top">
+            <div>Custom Variables -</div>
+            <pre><code>{{ custom_variables }}</code></pre>
+          </div>
           <div class="center  margin--top">
             <div>User ID - <strong>{{ user_id }}</strong></div>
           </div>
+
 
           {% if (is_part_of_campaign) %}
             <div class="center  margin--top">

@@ -1,3 +1,4 @@
 devtools/
 *.pyc
 .DS_Store
+dev_config.py

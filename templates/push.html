@@ -87,7 +87,7 @@
   </head>
 <body>
   <div>
-    <h2 class="center  color-blue">VWO Python SDK Example : <strong>{{ campaign_type }}</strong></h2>
+    <h2 class="center  color-blue">VWO Python SDK Example : <strong>PUSH API</strong></h2>
     <div class="main-container">
       <div class="left-container">
         <h2 class="center  color-grey">Settings</h2>
@@ -99,41 +99,25 @@
           <h2 class="center  color-grey">Details</h2>
 
           <div class="center  margin--top">
-            <div>Campaign key - <strong>{{ feature_campaign_key }}</strong></div>
+            <div>Tag Key - <strong>{{ tag_key }}</strong></div>
           </div>
-          <div class="center margin--top">
-            <div>Campaign goal identifier - <strong>{{ feature_campaign_goal_identifier }}</strong></div>
-          </div>
+
           <div class="center  margin--top">
-            <div>Custom Variables -</div>
-            <pre><code>{{ custom_variables }}</code></pre>
+            <div>Tag Value - <strong>{{ tag_value }}</strong></div>
           </div>
+
           <div class="center  margin--top">
             <div>User ID - <strong>{{ user_id }}</strong></div>
           </div>
 
-          {% if (is_user_part_of_feature_campaign) %}
+          {% if (result) %}
             <div class="center  margin--top">
-              <div>User became a part of feature test </div>
+              <div>Data pushed to server successfully</div>
             </div>
           {% else %}
             <div class="center  margin--top">
-              <div>User did not become a part of feature test</div>
+              <div>Failed to push data to the server</div>
             </div>
-          {% endif %}
-        </div>
-        <div class="half-containers  center">
-          {% if (boolean_variable is not none) %}
-            <button class="v1">BOOLEAN: {{boolean_variable}}</button>
-          {% endif %}
-          {% if (integer_variable is not none) %}
-            <button class="v1">INTEGER: {{integer_variable}}</button>
-          {% endif %}
-          {% if (double_variable is not none) %}
-            <button class="v1">DOUBLE: {{double_variable}}</button>
-          {% endif %}
-          {% if (string_variable is not none) %}
-            <button class="v1">STRING: {{string_variable}}</button>
           {% endif %}
         </div>
       </div>
