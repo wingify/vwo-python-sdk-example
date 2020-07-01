@@ -10,7 +10,7 @@ This repository provides a basic demo of how server-side works with VWO Python S
 
 ### Documentation
 
-Refer [VWO Official Server-side Documentation](https://developers.vwo.com/reference#server-side-introduction)
+Refer [VWO Official FullStack Documentation](https://developers.vwo.com/reference#fullstack-introduction)
 
 ### Scripts
 
