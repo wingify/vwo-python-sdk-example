@@ -6,7 +6,7 @@ This repository provides a basic demo of how server-side works with VWO Python S
 
 ### Requirements
 
-- python 2.7 +
+- python 2.7+
 
 ### Documentation
 
@@ -20,14 +20,46 @@ Refer [VWO Official FullStack Documentation](https://developers.vwo.com/referenc
 pip install -r requirements.txt
 ```
 
-2. Update your app with your settings present in config.py
+2. Update your app with your settings present in `config.py`
 
 ```python
-account_id = 'REPLACE_THIS_WITH_CORRECT_VALUE'
-sdk_key = 'REPLACE_THIS_WITH_CORRECT_VALUE'
+AccountDetails = {
+    'account_id': '',
+    'sdk_key': '',
+}
 
-ab_campaign_key = 'REPLACE_THIS_WITH_CORRECT_VALUE'
-ab_campaign_goal_identifeir = 'REPLACE_THIS_WITH_CORRECT_VALUE'
+AbCampaignData = {
+    'campaign_key': '',
+    'campaign_goal_identifier': '',
+    'user_id': '',
+    'revenue_value': '',
+    # custom_variables: Optional param, used for pre-segmentation
+}
+
+FeatureRolloutData =  {
+    'campaign_key': '',
+    'user_id': '',
+    # custom_variables: Optional param, used for pre-segmentation
+}
+
+FeatureTestData = {
+    'campaign_key': '',
+    'campaign_goal_identifier': '',
+    'revenue_value': '',
+    'user_id': '',
+    # custom_variables: Optional param, used for pre-segmentation
+
+    'string_variable_key': '',
+    'integer_variable_key': '',
+    'double_variable_key': '',
+    'boolean_variable_key': '',
+}
+
+PushData = {
+    'tag_key': '',
+    'tag_value': '',
+    'user_id': '',
+}
 ```
 
 3. Run application
@@ -44,7 +76,7 @@ python server.py
 import vwo
 
 settings_file = vwo.get_settings_file(account_id, sdk_key)
-vwo_client_instance = vwo.VWO(settings_file)
+vwo_client_instance = vwo.launch(settings_file)
 ```
 
 **API usage**
@@ -108,4 +140,4 @@ vwo_client_instance = vwo.VWO(settings_file, user_storage = user_storage_instanc
 
 [Apache License, Version 2.0](https://github.com/wingify/vwo-python-sdk-example/blob/master/LICENSE)
 
-Copyright 2019 Wingify Software Pvt. Ltd.
+Copyright 2019-2021 Wingify Software Pvt. Ltd.
