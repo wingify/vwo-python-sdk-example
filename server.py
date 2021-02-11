@@ -20,7 +20,7 @@ import threading
 
 import vwo
 from flask import Flask, jsonify, render_template, request
-from vwo import LogLevels, UserStorage, logger
+from vwo import LOG_LEVELS, UserStorage
 
 try:
     from dev_config import (AbCampaignData, AccountDetails, FeatureRolloutData,
@@ -75,13 +75,13 @@ def init_sdk():
         settings_file = new_settings_file
 
         print('VWO SDK instance created')
-        vwo_client_instance = vwo.VWO(
+        vwo_client_instance = vwo.launch(
             settings_file,
             # Enable UserStorage and add code in get and set method
             # user_storage = user_storage_instance
             # Enable custom logger to check how it works
             # logger = CustomLogger()
-            log_level = LogLevels.DEBUG
+            log_level = LOG_LEVELS.DEBUG
         )
 
 init_sdk()

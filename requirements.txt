@@ -1,2 +1,2 @@
 Flask==1.1.1
-vwo-python-sdk==1.1.2
+vwo-python-sdk==1.8.2
