@@ -26,6 +26,7 @@ pip install -r requirements.txt
 AccountDetails = {
     'account_id': '',
     'sdk_key': '',
+    # webhook_auth_key: Optional, used when webhooks is enabled
 }
 
 AbCampaignData = {

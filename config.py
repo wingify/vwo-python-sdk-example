@@ -15,6 +15,8 @@
 AccountDetails = {
     'account_id': '',
     'sdk_key': '',
+    # webhook_auth_key: Optional, used when webhooks is enabled
+    # 'webhook_auth_key': ''
 }
 
 AbCampaignData = {

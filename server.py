@@ -19,7 +19,7 @@ import json
 import threading
 
 import vwo
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, abort, make_response
 from vwo import LOG_LEVELS, UserStorage
 
 try:
@@ -57,6 +57,14 @@ class user_storage(UserStorage):
 
 user_storage_instance = user_storage()
 
+def update_sdk_settings_file(is_via_webhook=False):
+    global vwo_client_instance
+    global settings_file
+
+    if vwo_client_instance:
+        settings_file = vwo_client_instance.get_and_update_settings_file(AccountDetails.get('account_id'), 
+                                                AccountDetails.get('sdk_key'), 
+                                                is_via_webhook)
 
 def init_sdk():
     global vwo_client_instance
@@ -85,7 +93,7 @@ def init_sdk():
         )
 
 init_sdk()
-# set_interval(init_sdk, POLL_TIME)
+# set_interval(update_sdk_settings_file, POLL_TIME)
 
 
 @app.route('/')
@@ -222,6 +230,25 @@ def push_api():
         result = result,
         settings_file = json.dumps(json.loads(settings_file), sort_keys = True, indent = 4, separators = (',', ': '))
     )
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    print('\nWEBHOOK TRIGGERED, {body}, \nWebhook Auth Key: {webhook_auth_key}'
+        .format(body=request.json, webhook_auth_key=request.headers.get('x-vwo-auth'))
+        )
+
+    WEBHOOK_AUTH_KEY = AccountDetails.get('webhook_auth_key')
+    if WEBHOOK_AUTH_KEY and request.headers.get('x-vwo-auth'):
+        if WEBHOOK_AUTH_KEY != request.headers.get('x-vwo-auth'):
+            print('Webhook api authentication failed')
+            abort(401)
+        else:
+            print('Webhook api authentication successful')
+    else:
+        print('Skipping authentication as missing webhook authentication key')
+
+    update_sdk_settings_file(True)
+    return make_response({'status': 'success', 'message': 'settings updated successfully'}, 200)
 
 
 if __name__ == '__main__':
