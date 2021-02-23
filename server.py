@@ -17,6 +17,7 @@ from __future__ import print_function
 
 import json
 import threading
+from flask import jsonify
 
 import vwo
 from flask import Flask, jsonify, render_template, request, abort, make_response
@@ -66,6 +67,11 @@ def update_sdk_settings_file(is_via_webhook=False):
                                                 AccountDetails.get('sdk_key'), 
                                                 is_via_webhook)
 
+def flush_callback(err, events):
+    print(err)
+    print(events)
+
+
 def init_sdk():
     global vwo_client_instance
     global settings_file
@@ -89,7 +95,13 @@ def init_sdk():
             # user_storage = user_storage_instance
             # Enable custom logger to check how it works
             # logger = CustomLogger()
-            log_level = LOG_LEVELS.DEBUG
+            log_level = LOG_LEVELS.DEBUG,
+            # uncomment batch_events to enable event batching
+            # batch_events={
+            #     'events_per_request': 5,
+            #     'request_time_interval': 60,
+            #     'flush_callback': flush_callback
+            # }
         )
 
 init_sdk()
@@ -248,7 +260,16 @@ def webhook():
         print('Skipping authentication as missing webhook authentication key')
 
     update_sdk_settings_file(True)
-    return make_response({'status': 'success', 'message': 'settings updated successfully'}, 200)
+    return make_response(jsonify({'status': 'success', 'message': 'settings updated successfully'}), 200)
+
+
+
+
+@app.route("/flush-events")
+def flush_events():
+    mode = request.args.get("mode")
+    vwo_client_instance.flush_events(mode=mode)
+    return jsonify({'success':True})
 
 
 if __name__ == '__main__':
