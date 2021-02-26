@@ -253,7 +253,7 @@ def webhook():
     if WEBHOOK_AUTH_KEY and request.headers.get('x-vwo-auth'):
         if WEBHOOK_AUTH_KEY != request.headers.get('x-vwo-auth'):
             print('Webhook api authentication failed')
-            abort(401)
+            return make_response(jsonify({'status': 'failure', 'message': 'webhook api authentication failed'}), 200)
         else:
             print('Webhook api authentication successful')
     else:
