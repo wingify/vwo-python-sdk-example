@@ -71,6 +71,12 @@ def flush_callback(err, events):
     print(err)
     print(events)
 
+class Integrations(object):
+    def __init__(self):
+        pass
+
+    def callback(self, properties):
+        print(properties)
 
 def init_sdk():
     global vwo_client_instance
@@ -102,6 +108,7 @@ def init_sdk():
             #     'request_time_interval': 60,
             #     'flush_callback': flush_callback
             # }
+            # integrations=Integrations()
         )
 
 init_sdk()
