@@ -1,3 +1,4 @@
-Flask==1.0.4; python_version=="3.4"
-Flask==1.1.1; python_version!="3.4"
-vwo-python-sdk==1.10.1
+Flask==1.1.1; python_version<"3.4"
+Flask>=2.2.2; python_version>"3.4"
+jsonschema==3.2.0
+vwo-python-sdk==1.35.0
