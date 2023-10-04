@@ -129,9 +129,17 @@ def ab_campaign():
     else:
         user_id = str(req_user_id)
 
+    # Get the User-Agent header from the request
+    user_agent = request.headers.get('User-Agent')
+
+    # Get the client's IP address from the request
+    user_ip_address = request.remote_addr
+
     variation_name = vwo_client_instance.activate(AbCampaignData.get('campaign_key'),
                                                   user_id,
-                                                  custom_variables=AbCampaignData.get('custom_variables'))
+                                                  custom_variables=AbCampaignData.get('custom_variables'),
+                                                  user_agent=user_agent,
+                                                  user_ip_address=user_ip_address)
 
     if variation_name:
       is_part_of_campaign = True
@@ -141,7 +149,10 @@ def ab_campaign():
     vwo_client_instance.track(AbCampaignData.get('campaign_key'),
                               user_id,
                               AbCampaignData.get('campaign_goal_identifier'),
-                              revenue_value=AbCampaignData.get('revenue_value'))
+                              revenue_value=AbCampaignData.get('revenue_value'),
+                              user_agent=user_agent,
+                              user_ip_address=user_ip_address)
+                              
 
     return render_template(
         'ab.html',
@@ -165,9 +176,17 @@ def feature_rollout_campaign():
     else:
         user_id = str(req_user_id)
 
+     # Get the User-Agent header from the request
+    user_agent = request.headers.get('User-Agent')
+
+    # Get the client's IP address from the request
+    user_ip_address = request.remote_addr
+    
     is_user_part_of_feature_rollout_campaign = vwo_client_instance.is_feature_enabled(FeatureRolloutData.get('campaign_key'),
                                                                                       user_id,
-                                                                                      custom_variables=FeatureRolloutData.get('custom_variables'))
+                                                                                      custom_variables=FeatureRolloutData.get('custom_variables'),
+                                                                                      user_agent=user_agent,
+                                                                                      user_ip_address=user_ip_address)
 
     return render_template(
         'feature-rollout.html',
@@ -188,14 +207,24 @@ def feature_campaign():
         user_id = FeatureTestData.get('user_id') or get_random_user()
     else:
         user_id = str(req_user_id)
+    
+    # Get the User-Agent header from the request
+    user_agent = request.headers.get('User-Agent')
 
-    is_user_part_of_feature_campaign = vwo_client_instance.is_feature_enabled(FeatureTestData.get('campaign_key'), user_id)
+    # Get the client's IP address from the request
+    user_ip_address = request.remote_addr
+
+    is_user_part_of_feature_campaign = vwo_client_instance.is_feature_enabled(FeatureTestData.get('campaign_key'), user_id,
+                                                                                      user_agent=user_agent,
+                                                                                      user_ip_address=user_ip_address)
 
     vwo_client_instance.track(FeatureTestData.get('campaign_key'),
                               user_id,
                               FeatureTestData.get('campaign_goal_identifier'),
                               revenue_value=FeatureTestData.get('revenue_value'),
-                              custom_variables=FeatureTestData.get('custom_variables'))
+                              custom_variables=FeatureTestData.get('custom_variables'),
+                              user_agent=user_agent,
+                              user_ip_address=user_ip_address)
 
     string_variable = vwo_client_instance.get_feature_variable_value(FeatureTestData.get('campaign_key'),
                                                                      FeatureTestData.get('string_variable_key'),
